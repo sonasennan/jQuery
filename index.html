@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>User Details</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>User Table</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody id="data-container">
+        
+    </tbody>
+</table>
+<button type="button" id="load-button">Load data</button>
+
+<script>
+    $(document).ready (function(){
+
+        $("#load-button").click(function()
+    {
+        $.ajax({
+                url: "https://fakestoreapi.com/users",
+                method: "GET",
+                success: function(data) {
+                    var userContainer = $("#data-container");
+                    userContainer.empty();
+
+                    data.forEach(function(i) {
+                        var row = `<tr>
+                            <td>${i.id}</td>
+                            <td>${i.name.firstname}</td>
+                            <td>${i.email}</td>
+                        </tr>`;
+                        userContainer.append(row);
+                    });
+                },
+                    
+               }
+        
+        );
+    });
+
+    });
+</script>
+
+</body>
+
+</html>
